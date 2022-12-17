@@ -2,6 +2,6 @@ loguru==0.6.0
 pyfiglet==0.8.post1
 rich==12.6.0
 python-slugify==7.0.0
-pylint==2.15.5
+pylint==2.15.9
 pycodestyle==2.9.1
 black==22.10.0

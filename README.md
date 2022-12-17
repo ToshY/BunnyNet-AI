@@ -105,7 +105,7 @@ pre-commit install
 task up
 ```
 
-### Quality &[main.py](main.py) Code Style
+### Quality & Code Style
 
 ```shell
 task check

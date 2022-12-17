@@ -5,12 +5,13 @@
 import hashlib
 import argparse
 import os
+import sys
 from urllib.request import urlretrieve
 from base64 import b64encode
-from src.banner import cli_banner
 from time import time
 from loguru import logger
 from slugify import slugify
+from src.banner import cli_banner
 
 
 def cli_args(args=None):
@@ -112,6 +113,9 @@ def generate_secure_url(
 
 @logger.catch
 def main(custom_args=None):
+    """
+    Sending request to Bunny AI
+    """
     input_args = cli_args(custom_args)
 
     for _ in range(input_args.number):
@@ -128,11 +132,10 @@ def main(custom_args=None):
 
 
 if __name__ == "__main__":
-    """Main"""
     cli_banner("BunnyNet  AI")
 
     try:
-        main_result = main()
+        main()
     except KeyboardInterrupt:
         print("\r\n\r\n> [red]Execution cancelled by user[/red]")
-        exit()
+        sys.exit()

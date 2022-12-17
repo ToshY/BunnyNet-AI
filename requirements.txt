@@ -4,4 +4,4 @@ rich==12.6.0
 python-slugify==7.0.0
 pylint==2.15.9
 pycodestyle==2.10.0
-black==22.10.0
+black==22.12.0

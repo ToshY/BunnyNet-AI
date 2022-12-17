@@ -1,0 +1,11 @@
+.git
+.gitignore
+.github
+.idea
+.dockerignore
+Dockerfile
+__pycache__
+README.md
+.pre-commit-config.yaml
+.task
+Taskfile.yml

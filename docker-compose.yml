@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  bunnynet-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app

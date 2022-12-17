@@ -1,0 +1,40 @@
+version: '3'
+
+vars:
+  SERVICE: bunnynet-ai
+  REPO: t0shy/bunnynet-ai
+  TAG: latest
+
+tasks:
+  default:
+    cmds:
+      - task --list
+
+  # Application
+  run:
+    desc: Run
+    cmds:
+      - docker compose run {{.SERVICE}} python3 main.py
+
+  # Docker
+  up:
+    desc: Up service
+    cmds:
+      - docker compose up -d --build --remove-orphans --force-recreate
+
+  down:
+    desc: Down service
+    cmds:
+      - docker compose down --remove-orphans
+
+  # Tools
+  check:
+    desc: Run pylint & pycodestyle
+    cmds:
+      - docker compose run {{.SERVICE}} pylint --max-line-length=120 --recursive=y .
+      - docker compose run {{.SERVICE}} pycodestyle --max-line-length=120 --show-source .
+
+  fix:
+    desc: Run black
+    cmds:
+      - docker compose run {{.SERVICE}} black .

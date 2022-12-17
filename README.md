@@ -38,7 +38,7 @@ docker build -t t0shy/bunnynet-ai:latest --no-cache .
 2. Run it.
 
 ```shell
-docker run -it -v ${PWD}/output:/app/output ubuntu --rm --name bunnynet-ai t0shy/bunnynet-ai:latest python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
 ```
 
 #### Docker Compose
@@ -65,7 +65,7 @@ docker compose up -d --remove-orphans
 
 
 ```shell
-docker compose run bunnynet-ai python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
 ```
 
 ### 🐍 Plain
@@ -79,7 +79,7 @@ pip install -r requirements.txt
 Run it.
 
 ```shell
-python main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
 ```
 
 ## 🛠️ Contribute

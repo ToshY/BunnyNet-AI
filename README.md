@@ -1,9 +1,9 @@
 <h1 align="center">BunnyNet AI</h1>
 
 <p align="center" width="100%">
-    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-18315061651450471761.png">
-    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-395701193653652308.png">
-    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-13510430255274468932.png">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/blob/main/examples/%5Bdemo-cyberpunk-avatar%5Drabbit-18315061651450471761.png" alt="cyberpunk bunny left">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/blob/main/examples/%5Bdemo-cyberpunk-avatar%5Drabbit-395701193653652308.png" alt="cyberpunk bunny middle">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/blob/main/examples/%5Bdemo-cyberpunk-avatar%5Drabbit-13510430255274468932.png" alt="cyberpunk bunny right">
 </p>
 
 <div align="center">

@@ -54,7 +54,7 @@ docker build -t t0shy/bunnynet-ai:latest --no-cache .
 2. Run it.
 
 ```shell
-docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
+docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
 
 #### Docker Compose

@@ -84,7 +84,7 @@ docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d785
 ```
 
 3. Saved images can be found on the mounted directory of the host machine.
-   * Filename format is as follows: `[blueprint][prompt]-[seed][extension]`.
+   * Filename format is as follows: `[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}`.
 
 ### 🐍 Python
 
@@ -101,7 +101,7 @@ python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" 
 ```
 
 3. Saved images can be found in the `./output` directory (relative to working directory).
-   * Filename format is as follows: `[blueprint][prompt]-[seed][extension]`.
+   * Filename format is as follows: `[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}`.
 
 ## 🛠️ Contribute
 

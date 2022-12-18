@@ -1,23 +1,39 @@
-<br />
-<a href="https://bunny.net?ref=pji59zr7a4">
-    <img alt="BunnyNet Logo" src="https://bunny.net/v2/images/bunnynet-logo-dark.svg" width="300" />
-</a>
+<h1 align="center">BunnyNet AI</h1>
 
-# 🖼️ BunnyNet AI
+<p align="center" width="100%">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-18315061651450471761.png">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-395701193653652308.png">
+    <img width="32%" src="https://github.com/ToshY/BunnyNet-AI/examples/%5Bcyberpunk-demo-avatar%5Drabbit-13510430255274468932.png">
+</p>
 
-<div align="left">
+<div align="center">
     <img src="https://img.shields.io/github/v/release/toshy/bunnynet-ai?label=Release&sort=semver" alt="Current bundle version" />
     <a href="https://hub.docker.com/r/t0shy/bunnynet-ai"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fbunnynet--ai-blue" alt="Docker Hub" /></a>
     <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/pylint.yml?branch=master&label=Pylint" alt="Code style">
     <img src="https://img.shields.io/badge/Code%20Style-PEP8-orange.svg" alt="Code style" />
-    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=master&label=Security%20check" alt="Security check">
+    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=master&label=Security%20check" alt="Security check" />
+    <br /><br />
+    <div>Generating images with <a href="https://docs.bunny.net/docs/bunny-ai-image-generation">Bunny AI</a>.</div>
 </div>
 
-A basic python app for batch generation of AI created images using [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).
+## Introduction
+
+On December 15th, 2022 BunnyWay
+introduced [Bunny AI](https://bunny.net/blog/introducing-bunny-optimizer-ai-a-new-way-of-creating-content/): an easy way
+to dynamically generate images using AI technology such as [DALL-E 2](https://openai.com/dall-e-2/) and [Stable Diffusion](https://github.com/CompVis/stable-diffusion)
+
+In order to make it easier to generate images for developers, this (python) application will simply send batch requests based on the users input. For more details see the "How To Use" section.
+
+> Note: 
+> * This is a **non-official** library for [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).
+> * Bunny AI is currently in [experimental preview phase](https://bunny.net/blog/introducing-bunny-optimizer-ai-a-new-way-of-creating-content/#try-it-out-yourself-).
 
 ## Setup
 
-You can choose to either follow the Docker route or plain (Python) route. Images will be saved to the `./output` directory
+* You can choose to either follow the [Docker](#-docker--compose) or [Python](#-python) route.
+* For help, run `main.py -h`.
+* Images are always saved in the `./output` directory (relative to the working directory).
+  * In the docker container this will be `/app/output`.
 
 ### 🐋 Docker / Compose
 
@@ -38,7 +54,7 @@ docker build -t t0shy/bunnynet-ai:latest --no-cache .
 2. Run it.
 
 ```shell
-docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "31a98200-02d3-4fdf-888a-c3c1f1758021" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
 
 #### Docker Compose
@@ -63,12 +79,14 @@ docker compose up -d --remove-orphans
 
 3. Run it.
 
-
 ```shell
-docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
 
-### 🐍 Plain
+3. Saved images can be found on the mounted directory of the host machine.
+   * Filename format is as follows: `[blueprint][prompt]-[seed][extension]`.
+
+### 🐍 Python
 
 1. Install the requirements with `pip`.
 
@@ -79,8 +97,11 @@ pip install -r requirements.txt
 2. Run it.
 
 ```shell
-python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5
+python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
+
+3. Saved images can be found in the `./output` directory (relative to working directory).
+   * Filename format is as follows: `[blueprint][prompt]-[seed][extension]`.
 
 ## 🛠️ Contribute
 

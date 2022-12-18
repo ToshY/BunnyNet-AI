@@ -6,10 +6,10 @@ import hashlib
 import argparse
 import os
 import sys
+import logging as log
 from urllib.request import urlretrieve
 from base64 import b64encode
 from time import time
-from loguru import logger
 from slugify import slugify
 from src.banner import cli_banner
 
@@ -25,14 +25,14 @@ def cli_args(args=None):
         "--key",
         type=str,
         required=True,
-        help="API key for token authentication; e.g. 489eb71e-1259-4e1a-83c2-2d7859eec469",
+        help="API key for token authentication; e.g. '489eb71e-1259-4e1a-83c2-2d7859eec469'",
     )
     parser.add_argument(
         "-hn",
         "--hostname",
         type=str,
         required=True,
-        help="Pull zone hostname; e.g. myzone.b-cdn.net",
+        help="Pull zone hostname; e.g. 'myzone.b-cdn.net'",
     )
     parser.add_argument(
         "-e",
@@ -40,7 +40,7 @@ def cli_args(args=None):
         type=str,
         required=False,
         default="dalle-1024",
-        help="AI engine type; e.g dalle-1024",
+        help="AI engine type; e.g 'dalle-1024'",
     )
     parser.add_argument(
         "-b",
@@ -48,21 +48,21 @@ def cli_args(args=None):
         type=str,
         required=False,
         default="default",
-        help="Blueprint; e.g. default",
+        help="Blueprint; e.g. 'default'",
     )
     parser.add_argument(
         "-p",
         "--prompt",
         type=str,
         required=True,
-        help="Search term to generate images; e.g. cats",
+        help="Search term to generate images; e.g. 'cute pixel art of a bunny with a colorful solid background'",
     )
     parser.add_argument(
         "-n",
         "--number",
         type=int,
         required=True,
-        help="Amount of images to generate; e.g. 10",
+        help="Amount of images to generate; e.g. '10'",
     )
     parser.add_argument(
         "-ext",
@@ -70,7 +70,7 @@ def cli_args(args=None):
         type=str,
         required=False,
         default="png",
-        help="Image file extension; e.g. png",
+        help="Image file extension; e.g. 'png'",
     )
     parser.add_argument(
         "-v",
@@ -85,12 +85,23 @@ def cli_args(args=None):
     else:
         args = parser.parse_args()
 
+    if args.verbose:
+        log.basicConfig(format="%(levelname)s: %(message)s", level=log.DEBUG)
+    else:
+        log.basicConfig(format="%(levelname)s: %(message)s")
+
     return args
 
 
+# pylint: disable-next=too-many-arguments
 def generate_secure_url(
-    security_key, path, expire_timeframe=120, base_url=str(), filtered_ip=""
-) -> object:
+    security_key,
+    path,
+    expire_timeframe=120,
+    host_name=str(),
+    protocol="https",
+    filtered_ip="",
+) -> str:
     """
     Based on https://docs.bunny.net/docs/cdn-token-authentication-basic
     """
@@ -108,27 +119,35 @@ def generate_secure_url(
         .replace("=", "")
     )
 
-    return f"{base_url}{path}?token={token_formatted}&expires={expire_timestamp}"
+    return f"{protocol}://{host_name}{path}?token={token_formatted}&expires={expire_timestamp}"
 
 
-@logger.catch
-def main(custom_args=None):
+def main(custom_args=None) -> None:
     """
     Sending request to Bunny AI
     """
     input_args = cli_args(custom_args)
+    file_extension = input_args.extension
+    file_prompt = input_args.prompt
+    slug_prompt = slugify(file_prompt)
+    image_engine = input_args.engine
+    image_blueprint = input_args.blueprint
 
     for _ in range(input_args.number):
         random_data = os.urandom(8)
         seed = int.from_bytes(random_data, byteorder="big")
 
-        ai_url = (
-            f"https://{input_args.hostname}/.ai/img/{input_args.engine}/{input_args.blueprint}/{seed}/"
-            f"{input_args.prompt}.{input_args.extension}"
-        )
-        file_name = f"{slugify(input_args.prompt)}-{seed}"
+        image_path = f"/.ai/img/{image_engine}/{image_blueprint}/{seed}/{slug_prompt}.{file_extension}"
 
-        urlretrieve(ai_url, f"./output/{file_name}")
+        secure_url = generate_secure_url(
+            input_args.key, image_path, 120, input_args.hostname
+        )
+
+        log.info("Sending request `%s`", secure_url)
+        urlretrieve(
+            secure_url,
+            f"./output/[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}",
+        )
 
 
 if __name__ == "__main__":

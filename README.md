@@ -9,9 +9,9 @@
 <div align="center">
     <img src="https://img.shields.io/github/v/release/toshy/bunnynet-ai?label=Release&sort=semver" alt="Current bundle version" />
     <a href="https://hub.docker.com/r/t0shy/bunnynet-ai"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fbunnynet--ai-blue" alt="Docker Hub" /></a>
-    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/pylint.yml?branch=master&label=Pylint" alt="Code style">
+    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/pylint.yml?branch=main&label=Pylint" alt="Code style">
     <img src="https://img.shields.io/badge/Code%20Style-PEP8-orange.svg" alt="Code style" />
-    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=master&label=Security%20check" alt="Security check" />
+    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=main&label=Security%20check" alt="Security check" />
     <br /><br />
     <div>Generating images with <a href="https://docs.bunny.net/docs/bunny-ai-image-generation">Bunny AI</a>.</div>
 </div>

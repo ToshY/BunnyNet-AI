@@ -7,13 +7,13 @@
 
 <div align="left">
     <img src="https://img.shields.io/github/v/release/toshy/bunnynet-ai?label=Release&sort=semver" alt="Current bundle version" />
-    <img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fbunnynet--ai-blue" alt="Current bundle version" />
+    <a href="https://hub.docker.com/r/t0shy/bunnynet-ai"><img src="https://img.shields.io/badge/Docker%20Hub-t0shy%2Fbunnynet--ai-blue" alt="Docker Hub" /></a>
     <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/pylint.yml?branch=master&label=Pylint" alt="Code style">
     <img src="https://img.shields.io/badge/Code%20Style-PEP8-orange.svg" alt="Code style" />
-    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=master&label=Audit" alt="Security check">
+    <img src="https://img.shields.io/github/actions/workflow/status/toshy/bunnynet-ai/security.yml?branch=master&label=Security%20check" alt="Security check">
 </div>
 
-A tiny python app for batch generation of AI created images using [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).
+A basic python app for batch generation of AI created images using [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).
 
 ## Setup
 
@@ -70,13 +70,13 @@ docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d785
 
 ### 🐍 Plain
 
-Install the requirements with `pip`.
+1. Install the requirements with `pip`.
 
 ```shell
 pip install -r requirements.txt
 ```
 
-Run it.
+2. Run it.
 
 ```shell
 python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5

@@ -22,7 +22,7 @@ On December 15th, 2022 BunnyWay
 introduced [Bunny AI](https://bunny.net/blog/introducing-bunny-optimizer-ai-a-new-way-of-creating-content/): an easy way
 to dynamically generate images using AI technology such as [DALL-E 2](https://openai.com/dall-e-2/) and [Stable Diffusion](https://github.com/CompVis/stable-diffusion)
 
-In order to make it easier to generate images for developers, this (python) application will simply send batch requests based on the users input.
+In order to make it easier to generate images for developers, this (python) application will simply send batch requests based on user's input.
 
 > Note: 
 > * This is a **non-official** library for [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).

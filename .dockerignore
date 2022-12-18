@@ -4,6 +4,7 @@
 .idea
 .dockerignore
 Dockerfile
+docker-compose.yml
 __pycache__
 .pre-commit-config.yaml
 .task

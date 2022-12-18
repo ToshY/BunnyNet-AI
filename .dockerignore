@@ -5,8 +5,8 @@
 .dockerignore
 Dockerfile
 __pycache__
-README.md
 .pre-commit-config.yaml
 .task
 Taskfile.yml
 output
+examples

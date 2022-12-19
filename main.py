@@ -6,13 +6,12 @@ import hashlib
 import argparse
 import os
 import sys
-import time
 import logging as log
 import shutil
 import urllib.request
 import urllib.error
+from time import time, sleep
 from base64 import b64encode
-from time import time
 from slugify import slugify
 from src.banner import cli_banner
 
@@ -142,14 +141,14 @@ def download_helper(image_url, file_path) -> None:
 
             log.info("Saved file to `%s`", file_path)
             return
-        except urllib.error.URLError as http_exception:
+        except urllib.error.HTTPError as http_exception:
             retry_count = retry_count - 1
             log.warning(
                 "Error response when sending request: `%s`; Retrying `%s` more times...",
                 http_exception,
                 retry_count,
             )
-            time.sleep(pow(2, retry_count))
+            sleep(pow(2, retry_count))
             continue
 
     if retry_count == 0 and len(http_exception) != 0:

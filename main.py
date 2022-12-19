@@ -6,8 +6,11 @@ import hashlib
 import argparse
 import os
 import sys
+import time
 import logging as log
-from urllib.request import urlretrieve
+import shutil
+import urllib.request
+import urllib.error
 from base64 import b64encode
 from time import time
 from slugify import slugify
@@ -122,6 +125,41 @@ def generate_secure_url(
     return f"{protocol}://{host_name}{path}?token={token_formatted}&expires={expire_timestamp}"
 
 
+def download_helper(image_url, file_path) -> None:
+    """
+    Custom download helper for images with exponential retry in seconds.
+    """
+    request = urllib.request.Request(url=image_url)
+
+    http_exception = ()
+    retry_count = 5
+    while retry_count > 0:
+        log.info("Sending request `%s`", image_url)
+        try:
+            with urllib.request.urlopen(request) as response:
+                with open(file_path, "wb") as save_file:
+                    shutil.copyfileobj(response, save_file)
+
+            log.info("Saved file to `%s`", file_path)
+            return
+        except urllib.error.URLError as http_exception:
+            retry_count = retry_count - 1
+            log.warning(
+                "Error response when sending request: `%s`; Retrying `%s` more times...",
+                http_exception,
+                retry_count,
+            )
+            time.sleep(pow(2, retry_count))
+            continue
+
+    if retry_count == 0 and len(http_exception) != 0:
+        log.critical(
+            "Unable to complete request for `%s` with response `%s`",
+            image_url,
+            http_exception,
+        )
+
+
 def main(custom_args=None) -> None:
     """
     Sending request to Bunny AI
@@ -138,16 +176,13 @@ def main(custom_args=None) -> None:
         seed = int.from_bytes(random_data, byteorder="big")
 
         image_path = f"/.ai/img/{image_engine}/{image_blueprint}/{seed}/{slug_prompt}.{file_extension}"
-
         secure_url = generate_secure_url(
             input_args.key, image_path, 120, input_args.hostname
         )
 
-        log.info("Sending request `%s`", secure_url)
-        urlretrieve(
-            secure_url,
-            f"./output/[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}",
-        )
+        save_path = f"./output/[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}"
+
+        download_helper(secure_url, save_path)
 
 
 if __name__ == "__main__":

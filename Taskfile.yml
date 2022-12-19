@@ -33,13 +33,28 @@ tasks:
       - docker compose down --remove-orphans
 
   # Tools
-  check:
-    desc: Run pylint & pycodestyle
+  contribute:
+    desc: Tasks for contributing
+    cmds:
+      - task: tools:pylint
+      - task: tools:pycodestyle
+
+  tools:pylint:
+    desc: Run pylint
     cmds:
       - docker compose run {{.SERVICE}} pylint --max-line-length=120 --recursive=y .
+
+  tools:pycodestyle:
+    desc: Run pycodestyle
+    cmds:
       - docker compose run {{.SERVICE}} pycodestyle --max-line-length=120 --show-source .
 
-  fix:
+  tools:black:check:
+    desc: Run black dryrun
+    cmds:
+      - docker compose run {{.SERVICE}} black . --diff --color
+
+  tools:black:fix:
     desc: Run black
     cmds:
       - docker compose run {{.SERVICE}} black .

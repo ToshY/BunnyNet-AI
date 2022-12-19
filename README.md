@@ -126,14 +126,10 @@ pre-commit install
 task up
 ```
 
-### Quality & Code Style
+### Checks
 
 ```shell
-task check
+task contribute
 ```
 
-### Code Style fix
-
-```shell
-task fix
-```
+> Note: you can use `task tools:black:fix` to resolve codestyle issues.

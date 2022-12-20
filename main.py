@@ -8,8 +8,9 @@ import os
 import sys
 import logging as log
 import shutil
-import urllib.request
 import urllib.error
+import urllib.parse
+import urllib.request
 from time import time, sleep
 from base64 import b64encode
 from slugify import slugify
@@ -97,12 +98,12 @@ def cli_args(args=None):
 
 # pylint: disable-next=too-many-arguments
 def generate_secure_url(
-    security_key,
-    path,
-    expire_timeframe=120,
-    host_name=str(),
-    protocol="https",
-    filtered_ip="",
+    security_key: str,
+    path: str,
+    expire_timeframe: int = 120,
+    host_name: str = str(),
+    protocol: str = "https",
+    filtered_ip: str = "",
 ) -> str:
     """
     Based on https://docs.bunny.net/docs/cdn-token-authentication-basic
@@ -121,18 +122,18 @@ def generate_secure_url(
         .replace("=", "")
     )
 
-    return f"{protocol}://{host_name}{path}?token={token_formatted}&expires={expire_timestamp}"
+    return f"{protocol}://{host_name}{urllib.parse.quote(path)}?token={token_formatted}&expires={expire_timestamp}"
 
 
-def download_helper(image_url, file_path) -> None:
+def download_helper(image_url: str, file_path: str, max_retries: int = 5) -> None:
     """
     Custom download helper for images with exponential retry in seconds.
     """
     request = urllib.request.Request(url=image_url)
 
     http_exception = ()
-    retry_count = 5
-    while retry_count > 0:
+    retry_count = 0
+    while 0 <= retry_count <= max_retries:
         log.info("Sending request `%s`", image_url)
         try:
             with urllib.request.urlopen(request) as response:
@@ -141,17 +142,22 @@ def download_helper(image_url, file_path) -> None:
 
             log.info("Saved file to `%s`", file_path)
             return
-        except urllib.error.HTTPError as http_exception:
-            retry_count = retry_count - 1
-            log.warning(
-                "Error response when sending request: `%s`; Retrying `%s` more times...",
-                http_exception,
-                retry_count,
-            )
-            sleep(pow(2, retry_count))
-            continue
+        except urllib.error.HTTPError as response_exception:
+            http_exception = response_exception
+            if retry_count == max_retries:
+                retry_count += 1
+                continue
 
-    if retry_count == 0 and len(http_exception) != 0:
+            sleep_time = pow(2, retry_count)
+            retry_count += 1
+            log.warning(
+                "Error response when sending request: `%s`; Retrying after `%s` seconds...",
+                http_exception,
+                sleep_time,
+            )
+            sleep(sleep_time)
+
+    if isinstance(http_exception, urllib.error.HTTPError):
         log.critical(
             "Unable to complete request for `%s` with response `%s`",
             image_url,

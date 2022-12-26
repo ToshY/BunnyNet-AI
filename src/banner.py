@@ -19,7 +19,7 @@ def cli_banner(
     banner_title : str
         Main file.
     banner_font : str, optional
-        Banner font type. The default is "isometric3".
+        Banner font type. The default is "standard".
     banner_color : str, optional
         Banner color. The default is "#FFA500" (orange).
     banner_width : int, optional

@@ -2,8 +2,6 @@ version: '3'
 
 vars:
   SERVICE: bunnynet-ai
-  REPO: t0shy/bunnynet-ai
-  TAG: latest
 
 tasks:
   default:
@@ -19,18 +17,18 @@ tasks:
       Example:
       - task run -- -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
     cmds:
-      - docker compose run {{.SERVICE}} python3 main.py {{.CLI_ARGS | default "-h"}}
+      - docker compose run --rm {{.SERVICE}} python main.py {{.CLI_ARGS | default "-h"}}
 
   # Docker
   up:
     desc: Up service
     cmds:
-      - docker compose up -d --build --remove-orphans --force-recreate
+      - docker compose up -d {{.CLI_ARGS | default "--build --remove-orphans --force-recreate"}}
 
   down:
     desc: Down service
     cmds:
-      - docker compose down --remove-orphans
+      - docker compose down {{.CLI_ARGS | default "--rmi local --remove-orphans"}}
 
   # Tools
   contribute:
@@ -42,19 +40,19 @@ tasks:
   tools:pylint:
     desc: Run pylint
     cmds:
-      - docker compose run {{.SERVICE}} pylint --max-line-length=120 --recursive=y .
+      - docker compose run --rm {{.SERVICE}} pylint --max-line-length=120 --recursive=y .
 
   tools:pycodestyle:
     desc: Run pycodestyle
     cmds:
-      - docker compose run {{.SERVICE}} pycodestyle --max-line-length=120 --show-source .
+      - docker compose run --rm {{.SERVICE}} pycodestyle --max-line-length=120 --show-source .
 
   tools:black:check:
     desc: Run black dryrun
     cmds:
-      - docker compose run {{.SERVICE}} black . --diff --color
+      - docker compose run --rm {{.SERVICE}} black . --diff --color
 
   tools:black:fix:
     desc: Run black
     cmds:
-      - docker compose run {{.SERVICE}} black .
+      - docker compose run --rm {{.SERVICE}} black .

@@ -54,7 +54,7 @@ docker build -t t0shy/bunnynet-ai:latest --no-cache .
 2. Run it.
 
 ```shell
-docker run -it -v ${PWD}/output:/app/output --rm t0shy/bunnynet-ai:latest python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
+docker run -it --rm -v ${PWD}/output:/app/output t0shy/bunnynet-ai:latest python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
 
 #### Docker Compose
@@ -80,10 +80,10 @@ docker compose up -d --remove-orphans
 3. Run it.
 
 ```shell
-docker compose run bunnynet-ai python3 main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
+docker compose run --rm bunnynet-ai python main.py -k "489eb71e-1259-4e1a-83c2-2d7859eec469" -hn "myzone.b-cdn.net" -p "cute pixel art of a bunny with a colorful solid background" -n 5 -v
 ```
 
-3. Saved images can be found on the mounted directory of the host machine.
+4. Saved images can be found on the mounted directory of the host machine.
    * Filename format is as follows: `[{image_blueprint}]{slug_prompt}-{seed}.{file_extension}`.
 
 ### 🐍 Python
@@ -118,12 +118,6 @@ Setting up `pre-commit` code style & quality checks for local development.
 
 ```shell
 pre-commit install
-```
-
-### Create service
-
-```shell
-task up
 ```
 
 ### Checks

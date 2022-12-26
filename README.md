@@ -133,3 +133,7 @@ task contribute
 ```
 
 > Note: you can use `task tools:black:fix` to resolve codestyle issues.
+
+## ❕ License
+
+This repository comes with the [MIT license](https://choosealicense.com/licenses/mit/).

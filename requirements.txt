@@ -1,6 +1,6 @@
 pyfiglet==0.8.post1
 rich==13.0.1
-python-slugify==7.0.0
+python-slugify==8.0.1
 pylint==2.15.9
 pycodestyle==2.10.0
 black==22.12.0

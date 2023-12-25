@@ -26,7 +26,6 @@ In order to make it easier to generate images for developers, this (python) appl
 
 > Note: 
 > * This is a **non-official** library for [Bunny AI](https://docs.bunny.net/docs/bunny-ai-image-generation).
-> * Bunny AI is currently in [experimental preview phase](https://bunny.net/blog/introducing-bunny-optimizer-ai-a-new-way-of-creating-content/#try-it-out-yourself-).
 
 ## Setup
 
